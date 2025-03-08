@@ -16,6 +16,17 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            entry_point: App\Security\LoginAuthenticator
+            form_login:
+                login_path: login
+                check_path: login
+                default_target_path: home
+                enable_csrf: true
+            logout:
+                path: logout
+                target: /
+            access_denied_url: login
+            custom_authenticator: App\Security\LoginAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -26,7 +37,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
